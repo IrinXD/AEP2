@@ -1,0 +1,91 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+/* O quadro Kanban */
+.kanban-board {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* As colunas */
+.kanban-column {
+    flex: 1;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 350px;
+    /* Limita a largura */
+}
+
+.kanban-column h2 {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* O container dos cartões */
+.cards-container {
+    min-height: 200px;
+    padding-bottom: 10px;
+}
+
+/* Os cartões (tarefas) */
+.kanban-card {
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    /* Indica que é "arrastável" */
+}
+
+.kanban-card h4 {
+    margin: 0;
+    font-size: 1em;
+}
+
+/* Efeito visual ao arrastar */
+.kanban-card.is-dragging {
+    opacity: 0.5;
+    background-color: #c0c0c0;
+}
+
+/* Formulário de nova tarefa */
+.add-task-form {
+    display: flex;
+    gap: 5px;
+}
+
+.task-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.add-task-form button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.add-task-form button:hover {
+    background-color: #0056b3;
+}

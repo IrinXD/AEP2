@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Dev Planner</h1>
+    </header>
+
+    <main class="kanban-board">
+
+        <div class="kanban-column" id="coluna-a-fazer">
+            <h2>A Fazer</h2>
+            <div class="cards-container" data-status="A Fazer">
+            </div>
+            <form class="add-task-form">
+                <input type="text" class="task-input" placeholder="Nova tarefa..." required>
+                <button type="submit">+ Add</button>
+            </form>
+        </div>
+
+        <div class="kanban-column" id="coluna-fazendo">
+            <h2>Fazendo</h2>
+            <div class="cards-container" data-status="Fazendo">
+            </div>
+        </div>
+
+        <div class="kanban-column" id="coluna-feito">
+            <h2>Feito</h2>
+            <div class="cards-container" data-status="Feito">
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
