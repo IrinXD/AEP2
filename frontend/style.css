@@ -1,184 +1,312 @@
-/* Estilos gerais */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+    --background: 216 28% 7%;
+    --foreground: 210 40% 98%;
+    --card: 217 33% 12%;
+    --card-hover: 217 33% 16%;
+    --popover: 217 33% 12%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 207 90% 54%;
+    --primary-hover: 207 90% 48%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 207 90% 54%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 85% 60%;
+    --destructive-hover: 0 85% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 207 90% 54%;
+    --radius: 0.75rem;
+    /* 12px */
+    --header-bg: 217 33% 10%;
+    --column-bg: 217 33% 14%;
+    --transition-smooth: all 0.2s ease-in-out;
+}
+
+/* 2. ESTILOS GLOBAIS (Body) */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7f6;
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     margin: 0;
     padding: 0;
-}
 
-header {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-}
-
-/* O quadro Kanban */
-.kanban-board {
     display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    gap: 20px;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: hidden;
 }
 
-/* As colunas */
+/* 3. HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: hsl(var(--header-bg));
+    color: hsl(var(--foreground));
+    padding: 1rem 2rem;
+    border-bottom: 1px solid hsl(var(--border));
+    flex-shrink: 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.btn-logout {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.btn-logout:hover {
+    background-color: hsl(var(--destructive-hover));
+}
+
+
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+
+    flex-grow: 1;
+    min-height: 0;
+}
+
 .kanban-column {
-    flex: 1;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    padding: 10px;
-    max-width: 350px;
-    /* Limita a largura */
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(var(--column-bg));
+    border-radius: var(--radius);
+    padding: 1rem;
 }
 
 .kanban-column h2 {
-    text-align: center;
-    font-size: 1.2em;
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    margin: 0 0 1rem 0;
+    padding: 0 0.5rem;
 }
 
-/* O container dos cartões */
 .cards-container {
-    min-height: 200px;
-    padding-bottom: 10px;
+    flex-grow: 1;
+    /* Ocupa o espaço restante */
+    overflow-y: auto;
+    /* Adiciona scroll SÓ na coluna */
+    padding: 0 0.5rem;
+    min-height: 100px;
 }
 
-/* Os cartões (tarefas) */
+/* 5. KANBAN CARDS (Tarefas) */
 .kanban-card {
-    background-color: white;
-    border-radius: 4px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /* Para o ícone de edição */
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
     cursor: grab;
-    /* Indica que é "arrastável" */
+    transition: var(--transition-smooth);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.kanban-card:hover {
+    background-color: hsl(var(--card-hover));
+    border-color: hsl(var(--ring));
 }
 
 .kanban-card h4 {
     margin: 0;
     font-size: 1em;
+    font-weight: 500;
+    color: hsl(var(--foreground));
 }
 
-/* Efeito visual ao arrastar */
 .kanban-card.is-dragging {
     opacity: 0.5;
-    background-color: #c0c0c0;
+    background-color: hsl(var(--column-bg));
+    border: 1px dashed hsl(var(--primary));
 }
 
-/* Formulário de nova tarefa */
+/* Ícone de Edição (Novo) */
+.edit-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8em;
+    cursor: pointer;
+    opacity: 0.3;
+    /* Escondido */
+    transition: var(--transition-smooth);
+}
+
+.kanban-card:hover .edit-icon {
+    opacity: 1;
+    /* Aparece no hover */
+}
+
+/* 6. FORMULÁRIO DE NOVA TAREFA (na coluna) */
 .add-task-form {
     display: flex;
-    gap: 5px;
+    gap: 10px;
+    margin-top: 1rem;
+    padding: 0 0.5rem;
 }
 
 .task-input {
     flex-grow: 1;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 8px;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.9em;
+}
+
+.task-input:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
 }
 
 .add-task-form button {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
+    padding: 10px 15px;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--foreground));
     border: none;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition-smooth);
 }
 
 .add-task-form button:hover {
-    background-color: #0056b3;
+    background-color: hsl(var(--primary-hover));
 }
 
-/* --- Estilos do Modal de Edição --- */
 
-/* O fundo escuro (overlay) */
+/* 7. ESTILOS DOS MODAIS (Genérico) */
 .modal-overlay {
     position: fixed;
-    /* Fica fixo na tela */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    /* Fundo preto semi-transparente */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fundo mais escuro */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* Fica na frente de tudo */
 }
 
-/* O conteúdo da janela */
 .modal-content {
-    background-color: white;
-    padding: 20px 30px;
-    border-radius: 8px;
+    background-color: hsl(var(--popover));
+    border: 1px solid hsl(var(--border));
+    padding: 2rem;
+    border-radius: var(--radius);
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    color: hsl(var(--popover-foreground));
 }
 
 .modal-content h3 {
     margin-top: 0;
+    font-size: 1.4em;
+    font-weight: 700;
 }
 
-/* Campos do formulário dentro do modal */
 .modal-content label {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9em;
 }
 
 .modal-content .task-input,
 .modal-content textarea {
-    width: 95%;
-    /* Ajusta a largura */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: calc(100% - 24px);
+    /* 100% - padding */
+    padding: 12px;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border-radius: 8px;
     font-size: 1em;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Botões de ação */
+.modal-content .task-input:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsla(var(--primary), 0.3);
+}
+
 .modal-actions {
-    margin-top: 20px;
-    text-align: right;
+    display: flex;
+    /* Botes em linha */
+    justify-content: flex-end;
+    /* Alinhados à direita */
+    gap: 10px;
+    margin-top: 1.5rem;
 }
 
 .modal-actions button {
     padding: 10px 15px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-left: 10px;
+    font-weight: 500;
+    transition: var(--transition-smooth);
 }
 
-#save-edit-btn {
-    background-color: #007bff;
-    color: white;
+/* Botões específicos do Modal */
+#save-edit-btn,
+#create-project-btn {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+}
+
+#save-edit-btn:hover,
+#create-project-btn:hover {
+    background-color: hsl(var(--primary-hover));
 }
 
 #cancel-edit-btn {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border));
 }
 
+#cancel-edit-btn:hover {
+    background-color: hsl(var(--secondary));
+}
 
-/* Estilo para o botão de excluir */
-.modal-actions .btn-danger {
-    background-color: #dc3545;
-    color: white;
-    float: left;
+#delete-task-btn {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    margin-right: auto;
 
 }
 
-.modal-actions .btn-danger:hover {
-    background-color: #c82333;
-}
-
-#save-edit-btn {
-    background-color: #007bff;
-    color: white;
+#delete-task-btn:hover {
+    background-color: hsl(var(--destructive-hover));
 }

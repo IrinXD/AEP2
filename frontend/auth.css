@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+    --background: 216 28% 7%;
+    --foreground: 210 40% 98%;
+    --card: 217 33% 12%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --primary: 207 90% 54%;
+    --primary-hover: 207 90% 48%;
+    --destructive: 0 85% 60%;
+    --success: 140 70% 45%;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.auth-container {
+    background-color: hsl(var(--card));
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid hsl(var(--border));
+    width: 100%;
+    max-width: 400px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-top: 0;
+    font-weight: 700;
+}
+
+h1 {
+    color: hsl(var(--foreground));
+    font-size: 1.5em;
+}
+
+h2 {
+    color: hsl(var(--foreground));
+    font-weight: 500;
+    font-size: 1.2em;
+    margin-bottom: 2rem;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 12px;
+    background-color: hsl(var(--input));
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 1em;
+    transition: all 0.2s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsla(var(--primary), 0.3);
+}
+
+button[type="submit"] {
+    padding: 12px;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--foreground));
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: hsl(var(--primary-hover));
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9em;
+}
+
+.switch-form a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: hsl(var(--destructive));
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9em;
+}
+
+.success {
+    color: hsl(var(--success));
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9em;
+}
